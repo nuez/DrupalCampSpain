@@ -1,0 +1,6 @@
+entity.dcamp_landing.add_form:
+  route_name: 'entity.dcamp_landing.add_form'
+  title: 'Add DrupalCamp Landing'
+  appears_on:
+    - entity.dcamp_landing.collection
+
