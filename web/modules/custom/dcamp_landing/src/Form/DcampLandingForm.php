@@ -186,7 +186,7 @@ class DcampLandingForm extends EntityForm {
           '%label' => $dcamp_landing->label(),
         ]));
     }
-    \Drupal::cache('config')->deleteAll();
+    drupal_set_message($this->t("Don't forget to rebuild caches."));
     $form_state->setRedirectUrl($dcamp_landing->urlInfo('collection'));
   }
 
