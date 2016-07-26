@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Contains dcamp_landing.module
+ */
+
+/**
+ * Implements hook_theme.
+ */
+function dcamp_landing_theme($existing, $type, $theme, $path){
+ return [];
+}

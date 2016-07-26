@@ -27,7 +27,10 @@ class DcampLandingListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
-  public function buildRow(DcampLandingInterface $entity) {
+  public function buildRow(EntityInterface $entity) {
+    /**
+     * @var DcampLandingInterface $entity
+     */
     $row['label'] = $entity->label();
     $row['id'] = $entity->id();
     $row['path'] = $entity->getPath();

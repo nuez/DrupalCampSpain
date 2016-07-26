@@ -7,11 +7,13 @@
 namespace Drupal\dcamp_landing\Form;
 
 use Drupal\block\Entity\Block;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
+use Symfony\Component\Routing\Route;
 
 /**
  * Class DcampLandingForm.
@@ -50,10 +52,9 @@ class DcampLandingForm extends EntityForm {
       '#type' => 'textfield',
       '#title' => $this->t('Route for landing page'),
       '#maxlength' => 50,
-      '#default_value' => !empty($dcamp_landing->getPath()) ? $dcamp_landing->getPath() : 'base:',
+      '#default_value' => !empty($dcamp_landing->getPath()) ? $dcamp_landing->getPath() : '',
       '#required' => TRUE,
       '#element_validate' => [[$this, 'validatePath']],
-      '#description' => $this->t('A base path to the landing page.')
     ];
 
 
@@ -106,8 +107,7 @@ class DcampLandingForm extends EntityForm {
   public static function validatePath(&$element, FormStateInterface $form_state, &$complete_form) {
     $path = $element['#value'];
     try {
-      $url = Url::fromUri($path);
-      $form_state->setValueForElement($element, $url->getUri());
+      $form_state->setValueForElement($element, Xss::filter($path));
     } catch (\Exception $e) {
       $form_state->setError($element, t('Please enter a valid internal path for the landing page.'));
     }
@@ -186,6 +186,7 @@ class DcampLandingForm extends EntityForm {
           '%label' => $dcamp_landing->label(),
         ]));
     }
+    \Drupal::cache('config')->deleteAll();
     $form_state->setRedirectUrl($dcamp_landing->urlInfo('collection'));
   }
 

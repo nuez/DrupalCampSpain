@@ -82,6 +82,6 @@ class DcampLanding extends ConfigEntityBase implements DcampLandingInterface {
    * @return array
    */
   public function getBlocks(){
-    return $this->blocks;
+    return !empty($this->blocks) ? $this->blocks : [];
   }
 }
