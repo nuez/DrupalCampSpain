@@ -1,6 +1,0 @@
-name: DrupalCamp Landing
-description: Manages different landing pages for AED Drupal Camps
-package: dcamp
-
-type: module
-core: 8.x

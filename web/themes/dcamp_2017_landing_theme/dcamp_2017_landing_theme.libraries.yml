@@ -14,9 +14,3 @@ global:
     - core/drupalSettings
     - core/jquery.once
     - core/modernizr
-
-#Vendor Library
-vendor:
-  version: 1.x
-  js:
-    scripts/vendor/fastclick.js: { scope: footer , weight: -8 }

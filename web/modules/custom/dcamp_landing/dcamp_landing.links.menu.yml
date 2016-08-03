@@ -1,8 +1,0 @@
-# DrupalCamp Landing menu items definition
-entity.dcamp_landing.collection:
-  title: 'DrupalCamp Landing'
-  route_name: entity.dcamp_landing.collection
-  description: 'List DrupalCamp Landing (bundles)'
-  parent: system.admin_structure
-  weight: 99
-

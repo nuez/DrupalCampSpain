@@ -1,2 +1,0 @@
-route_callbacks:
-  - 'Drupal\dcamp_landing\Routing\DcampLandingRoutes::routes'

@@ -1,0 +1,33 @@
+dcamp.dcamp.*:
+  type: config_entity
+  label: 'DrupalCamp Configuration Entity'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+      label: 'UUID'
+    landing_theme:
+      type: string
+      label: 'Landing Theme'
+    starting_date:
+      type: string
+      label: 'Starting Date'
+
+block.settings.dcamp_info_with_countdown_block:
+  type: block_settings
+  label: 'Branding block'
+  mapping:
+    title:
+      type: text
+      label: 'Title'
+    body:
+      type: text
+      label: 'Body'
+    date:
+      type: date
+      label: 'Starting date for the Drupal Camp'
