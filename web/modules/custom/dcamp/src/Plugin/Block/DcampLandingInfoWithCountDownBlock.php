@@ -8,7 +8,12 @@ namespace Drupal\dcamp\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Routing\CurrentRouteMatch;
+use Drupal\Core\Routing\RouteMatch;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 /**
@@ -19,7 +24,33 @@ use Drupal\Core\Form\FormStateInterface;
  *   admin_label = @Translation("Landing Info With Count Down Block")
  * )
  */
-class DcampLandingInfoWithCountDownBlock extends BlockBase implements BlockPluginInterface{
+class DcampLandingInfoWithCountDownBlock extends BlockBase implements BlockPluginInterface, ContainerFactoryPluginInterface{
+
+
+  /**
+   * @var RouteMatch
+   */
+  protected $currentRouteMatch;
+
+  /**
+   * Constructs a new Node Type object.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, CurrentRouteMatch $current_route_match) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->currentRouteMatch = $current_route_match;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('current_route_match')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -30,14 +61,17 @@ class DcampLandingInfoWithCountDownBlock extends BlockBase implements BlockPlugi
 
   /**
    * {@inheritdoc}
+   *
+   * @todo Add the countdown
    */
   public function build() {
     $config = $this->getConfiguration();
+    $dcamp = $this->currentRouteMatch->getParameter('dcamp');
     return [
-      '#markup' => 'block!!' .$config['start_date'],
-      '#cache' => [
-        'max-age' => 0,
-      ],
+      '#theme' => 'dcamp_landing_info_with_countdown',
+      '#title' => $config['title'],
+      '#body' => $config['body'],
+      '#countdown' => '@todo countdown to '. $dcamp->get('starting_date'),
     ];
   }
 
@@ -48,17 +82,19 @@ class DcampLandingInfoWithCountDownBlock extends BlockBase implements BlockPlugi
     $form =  parent::blockForm($form, $form_state);
 
     $config = $this->getConfiguration();
-
-    $form['start_date']  =[
-      '#type' => 'date',
-      '#title' => $this->t('Date'),
-      '#default_value' => $config['start_date'],
+    $form['title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Title'),
+      '#default_value' => $config['title'],
+      '#format' => $config['title'],
+      '#required' => TRUE,
     ];
-    $form['translatable_text'] = [
-      '#type' => 'text_format',
-      '#title' => $this->t('Text area'),
-      '#default_value' => $config['translatable_text_value'],
-      '#format' => $config['translatable_text_format'],
+    $form['body'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Body'),
+      '#default_value' => $config['body'],
+      '#format' => $config['body'],
+      '#required' => TRUE,
     ];
     return $form;
   }
@@ -67,8 +103,7 @@ class DcampLandingInfoWithCountDownBlock extends BlockBase implements BlockPlugi
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
-    $this->setConfigurationValue('start_date', $form_state->getValue('start_date'));
-    $this->setConfigurationValue('translatable_text_value', $form_state->getValue('translatable_text')['value']);
-    $this->setConfigurationValue('translatable_text_format', $form_state->getValue('translatable_text')['format']);
+    $this->setConfigurationValue('title', $form_state->getValue('title'));
+    $this->setConfigurationValue('body', $form_state->getValue('body'));
   }
 }

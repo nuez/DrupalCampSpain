@@ -18,9 +18,9 @@ dcamp.dcamp.*:
       type: string
       label: 'Starting Date'
 
-block.settings.dcamp_info_with_countdown_block:
+block.settings.dcamp_landing_info_with_countdown_block:
   type: block_settings
-  label: 'Branding block'
+  label: 'Landing Info With Countdown Block'
   mapping:
     title:
       type: text
@@ -28,6 +28,3 @@ block.settings.dcamp_info_with_countdown_block:
     body:
       type: text
       label: 'Body'
-    date:
-      type: date
-      label: 'Starting date for the Drupal Camp'

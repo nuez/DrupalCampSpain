@@ -43,34 +43,13 @@
  * @see html.html.twig
  */
 #}
-
-THE LANDING MOFOS PAGE!
-
-<div class="layout-container">
-
-  <header role="banner">
-    {{ page.header }}
-  </header>
-  {% if page.messages %}
-  <div class="messages">
-    {{ page.messages }}
-  </div>
-  {% endif %}
-  {% if page.breadcrumb %}
-    <div class="breadcrumb">
-      {{ page.breadcrumb }}
-    </div>
-  {% endif %}
-  <main role="main">
-    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
-    <div class="layout-content">
+<div class="content">
+     <h1>Drupal Camp Madrid</h1>
       {{ page.content }}
-    </div>{# /.layout-content #}
-  </main>
-  {% if page.footer %}
-    <footer role="contentinfo">
-      {{ page.footer }}
-    </footer>
-  {% endif %}
-
-</div>{# /.layout-container #}
+</div>
+      {{ page.region_1 }}
+      {{ page.region_2 }}
+      {{ page.region_3 }}
+      {{ page.region_4 }}
+      {{ page.region_5 }}
+      {{ page.region_6 }}

@@ -12,9 +12,10 @@ use Drupal\dcamp\Entity\Dcamp;
 
 
 class DcampController extends ControllerBase {
-  public function landing(Dcamp $dcamp_entity){
+  public function landing(Dcamp $dcamp){
+    // Return nothing. We only use blocks on the landing pages.
     return [
-      '#markup' => 'test',
+      '#markup' => '',
     ];
   }
 }

@@ -87,7 +87,7 @@ class DcampForm extends EntityForm {
       '#title' => t('Starting Date'),
       '#description' => t('Starting date of the Drupal Camp'),
       '#type' => 'datetime',
-      '#default_value' => DrupalDateTime::createFromTimestamp($dcamp->get('starting_date')),
+      '#default_value' => $dcamp->get('starting_date') ? DrupalDateTime::createFromTimestamp($dcamp->get('starting_date')) : '',
       '#element_validate' => [[$this, 'validateStartingDate']],
       '#required' => TRUE,
     ];
